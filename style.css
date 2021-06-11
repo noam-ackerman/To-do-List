@@ -115,6 +115,7 @@ select {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
+  transition: all 1s ease-in-out;
 }
 
 .todo li {
@@ -148,4 +149,14 @@ select {
 .fa-trash,
 .fa-check {
   pointer-events: none;
+}
+
+.animation {
+  transform: translateX(80px);
+  opacity: 0;
+}
+
+.completed {
+  text-decoration: line-through;
+  opacity: 0.5;
 }
