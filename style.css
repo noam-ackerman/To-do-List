@@ -1,0 +1,151 @@
+body {
+  background: linear-gradient(
+      -140deg,
+      #8effae 6.1%,
+      rgba(206, 143, 255, 0.828854) 75.67%,
+      rgba(216, 132, 255, 0.69) 93.41%
+    )
+    no-repeat center center fixed;
+  background-size: cover;
+  font-family: Gudea;
+}
+
+.group {
+  border: 1px solid rgb(100, 100, 100, 0.9);
+  box-sizing: border-box;
+  border-radius: 5px;
+  display: block;
+  margin: 60px auto;
+  max-width: 850px;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 40px;
+  line-height: 61px;
+  letter-spacing: 3px;
+  color: white;
+
+  -webkit-text-stroke-width: 0.8px;
+  -webkit-text-stroke-color: rgb(100, 100, 100, 0.9);
+}
+
+h1 {
+  margin: 0;
+  padding: 20px;
+  font-weight: normal;
+  font-size: 50px;
+}
+h2 {
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  font-size: 50px;
+}
+
+.todo-input {
+  padding: 6px 10px;
+  font-size: 15px;
+  color: rgb(100, 100, 100, 0.9);
+  border: 1px solid rgb(100, 100, 100, 0.9);
+  border-radius: 5px;
+  background: none;
+  min-width: 56%;
+}
+
+.todo-button {
+  color: white;
+  background: rgb(100, 100, 100, 0.9);
+  cursor: pointer;
+  padding: 6px 10px;
+  transition: all 0.3s ease;
+  font-size: 15px;
+  border: 1px solid rgb(100, 100, 100, 0.9);
+  border-radius: 5px;
+  position: relative;
+  right: -5px;
+  transition: all 250ms ease-in-out;
+}
+.todo-button:hover {
+  background: white;
+  color: rgb(100, 100, 100, 0.9);
+}
+
+select {
+  outline: 0;
+  box-shadow: none;
+  border: 1px solid rgb(100, 100, 100, 0.9);
+  border-radius: 5px;
+  background: none;
+  color: rgb(100, 100, 100, 0.9);
+  cursor: pointer;
+  width: 125px;
+  padding: 7px 10px 7px 3px;
+  margin: 15px;
+  font-size: 15px;
+}
+
+.todo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.todo-list {
+  min-width: 79%;
+  list-style: decimal;
+  position: relative;
+  left: -12px;
+}
+
+.todo {
+  background: none;
+  font-size: 17px;
+  font-weight: 600;
+  color: rgb(100, 100, 100, 0.9);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.todo li {
+  flex: 1;
+}
+
+.trash-btn,
+.complete-btn {
+  background: white;
+  color: rgb(100, 100, 100, 0.9);
+  border: none;
+  border-radius: 5px;
+  padding: 4px 16px;
+  cursor: pointer;
+  font-size: 15;
+  margin: 0px 11px;
+  transition: all 250ms ease-in-out;
+  position: relative;
+  left: 5px;
+}
+
+.trash-btn:hover {
+  background: rgb(100, 100, 100, 0.9);
+  color: white;
+}
+.complete-btn:hover {
+  background: rgb(100, 100, 100, 0.9);
+  color: white;
+}
+
+.fa-trash,
+.fa-check {
+  pointer-events: none;
+}
