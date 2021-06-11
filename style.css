@@ -15,7 +15,9 @@ body {
   box-sizing: border-box;
   border-radius: 5px;
   display: block;
-  margin: 60px auto;
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 15px;
   max-width: 850px;
 }
 
@@ -39,13 +41,12 @@ header {
 
 h1 {
   margin: 0;
-  padding: 20px;
+  padding: 18px;
   font-weight: normal;
   font-size: 50px;
 }
 h2 {
   margin: 0;
-  padding: 0;
   font-weight: bold;
   font-size: 50px;
 }
@@ -57,7 +58,7 @@ h2 {
   border: 1px solid rgb(100, 100, 100, 0.9);
   border-radius: 5px;
   background: none;
-  min-width: 56%;
+  min-width: 54%;
 }
 
 .todo-button {
@@ -71,7 +72,7 @@ h2 {
   border-radius: 5px;
   position: relative;
   right: -5px;
-  transition: all 250ms ease-in-out;
+  transition: all 200ms ease-in-out;
 }
 .todo-button:hover {
   background: white;
@@ -100,7 +101,7 @@ select {
   margin-bottom: 50px;
 }
 .todo-list {
-  min-width: 79%;
+  min-width: 76%;
   list-style: decimal;
   position: relative;
   left: -12px;
@@ -115,7 +116,7 @@ select {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
-  transition: all 1s ease-in-out;
+  transition: all 800ms ease-in-out;
 }
 
 .todo li {
@@ -132,9 +133,7 @@ select {
   cursor: pointer;
   font-size: 15px;
   margin: 0px 12px;
-  transition: all 250ms ease-in-out;
-  position: relative;
-  left: 5px;
+  transition: all 200ms ease-in-out;
 }
 
 .trash-btn:hover {
@@ -158,5 +157,15 @@ select {
 
 .completed {
   text-decoration: line-through;
-  opacity: 0.5;
+  color: #9c8ab2;
+}
+
+.codedBy {
+  color: white;
+  text-align: center;
+  font-size: 13px;
+  margin-bottom: 60px;
+}
+a {
+  color: white;
 }
