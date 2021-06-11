@@ -88,7 +88,7 @@ select {
   color: rgb(100, 100, 100, 0.9);
   cursor: pointer;
   width: 125px;
-  padding: 7px 10px 7px 3px;
+  padding: 5.8px 10px 5.8px 3px;
   margin: 15px;
   font-size: 15px;
 }
@@ -101,10 +101,10 @@ select {
   margin-bottom: 50px;
 }
 .todo-list {
-  min-width: 76%;
-  list-style: decimal;
+  min-width: 75%;
+  list-style: decimal-leading-zero;
   position: relative;
-  left: -12px;
+  left: -7px;
 }
 
 .todo {
