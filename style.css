@@ -74,7 +74,8 @@ h2 {
   right: -5px;
   transition: all 200ms ease-in-out;
 }
-.todo-button:hover {
+.todo-button:hover,
+.clear-btn:hover {
   background: white;
   color: rgb(100, 100, 100, 0.9);
 }
@@ -97,7 +98,7 @@ select {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 0;
   margin-bottom: 50px;
 }
 .todo-list {
@@ -136,10 +137,7 @@ select {
   transition: all 200ms ease-in-out;
 }
 
-.trash-btn:hover {
-  background: rgb(100, 100, 100, 0.9);
-  color: white;
-}
+.trash-btn:hover,
 .complete-btn:hover {
   background: rgb(100, 100, 100, 0.9);
   color: white;
@@ -168,4 +166,26 @@ select {
 }
 a {
   color: white;
+}
+
+.clear-btn {
+  background: rgb(100, 100, 100, 0.9);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 29px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  position: relative;
+  right: 106px;
+  transition: all 200ms ease-in-out;
+}
+
+.clearDiv {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  max-width: 100%;
+  margin-top: 40px;
 }
