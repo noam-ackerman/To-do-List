@@ -3,8 +3,9 @@
 let todoInput = document.querySelector("#to-do-input");
 let todoButton = document.querySelector("#to-do-button");
 let todoList = document.querySelector("#to-do-list");
+let todoContainer = document.querySelector("#to-do-container");
 let filterOption = document.querySelector("#filter-to-do");
-
+let clearDiv = document.querySelector("#clear-div");
 //events listeners
 
 todoButton.addEventListener("click", addTodo);
@@ -22,7 +23,7 @@ function addTodo(event) {
   newTodo.innerHTML = todoInput.value;
   newTodo.classList.add("todo-item");
   todoDiv.appendChild(newTodo);
-  saveLocalTodoItems(todoInput.value);
+  saveLocalTodoItems({ description: todoInput.value, status: "Open" });
   let completedButton = document.createElement("button");
   completedButton.innerHTML = `<i class="fas fa-check"></i>`;
   completedButton.classList.add("complete-btn");
@@ -48,6 +49,12 @@ function deleteItem(event) {
   }
   if (item.classList[0] === "complete-btn") {
     let toDoItem = item.parentElement;
+    console.log(toDoItem.children[0].innerHTML);
+    removeLocalTodoItems(toDoItem);
+    saveLocalTodoItems({
+      description: toDoItem.children[0].innerHTML,
+      status: "Completed",
+    });
     toDoItem.classList.add("completed");
   }
 }
@@ -94,24 +101,36 @@ function getTodoItems() {
   } else {
     todoItems = JSON.parse(localStorage.getItem(`todoItems`));
   }
-  todoItems.forEach(function (todoItem) {
-    let todoDiv = document.createElement("div");
-    todoDiv.classList.add("todo");
-    let newTodo = document.createElement("li");
-    newTodo.innerHTML = todoItem;
-    newTodo.classList.add("todo-item");
-    todoDiv.appendChild(newTodo);
-    let completedButton = document.createElement("button");
-    completedButton.innerHTML = `<i class="fas fa-check"></i>`;
-    completedButton.classList.add("complete-btn");
-    todoDiv.appendChild(completedButton);
-    let trashButton = document.createElement("button");
-    trashButton.innerHTML = `<i class="fas fa-trash"></i>`;
-    trashButton.classList.add("trash-btn");
-    todoDiv.appendChild(trashButton);
-    todoList.appendChild(todoDiv);
-    todoInput.value = "";
-  });
+  todoItems
+    .sort((a, b) => (a.status > b.status ? -1 : 1))
+    .forEach(function (todoItem, i, self) {
+      let todoDiv = document.createElement("div");
+      todoDiv.classList.add("todo");
+      let newTodo = document.createElement("li");
+      newTodo.innerHTML = todoItem.description;
+      newTodo.classList.add("todo-item");
+      if (todoItem.status == "Completed") {
+        todoDiv.classList.add("completed");
+      }
+      todoDiv.appendChild(newTodo);
+      let completedButton = document.createElement("button");
+      completedButton.innerHTML = `<i class="fas fa-check"></i>`;
+      completedButton.classList.add("complete-btn");
+      todoDiv.appendChild(completedButton);
+      let trashButton = document.createElement("button");
+      trashButton.innerHTML = `<i class="fas fa-trash"></i>`;
+      trashButton.classList.add("trash-btn");
+      todoDiv.appendChild(trashButton);
+      todoList.appendChild(todoDiv);
+      todoInput.value = "";
+      if (self.length == i + 1) {
+        let clearBtn = document.createElement("button");
+        clearBtn.innerHTML = `Clear all`;
+        clearBtn.classList.add("clear-btn");
+        clearDiv.appendChild(clearBtn);
+        clearBtn.addEventListener("click", clearList);
+      }
+    });
 }
 
 function removeLocalTodoItems(todoItem) {
@@ -122,6 +141,22 @@ function removeLocalTodoItems(todoItem) {
     todoItems = JSON.parse(localStorage.getItem(`todoItems`));
   }
   let todoItemsIndex = todoItem.children[0].innerText;
-  todoItems.splice(todoItems.indexOf(todoItemsIndex), 1);
+  todoItems.splice(
+    todoItems.map((x) => x.description).indexOf(todoItemsIndex),
+    1
+  );
   localStorage.setItem("todoItems", JSON.stringify(todoItems));
+}
+
+function clearList() {
+  let todoItems = todoList.childNodes;
+  todoItems.forEach(function (todoItem) {
+    if (todoItem.style.display == "flex" || todoItem.style.display == "") {
+      todoItem.classList.add("animation");
+      removeLocalTodoItems(todoItem);
+      todoItem.addEventListener("transitionend", (event) => {
+        todoItem.remove();
+      });
+    }
+  });
 }
