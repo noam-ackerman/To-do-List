@@ -177,15 +177,13 @@ a {
   cursor: pointer;
   font-size: 15px;
   font-weight: 600;
-  position: relative;
-  right: 106px;
+  margin-right: 12px;
   transition: all 200ms ease-in-out;
 }
 
 .clearDiv {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  max-width: 100%;
+  margin: 0 auto;
+  text-align: right;
+  max-width: 78%;
   margin-top: 40px;
 }
