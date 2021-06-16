@@ -34,6 +34,15 @@ function addTodo(event) {
   todoDiv.appendChild(trashButton);
   todoList.appendChild(todoDiv);
   todoInput.value = "";
+  let todoItems = JSON.parse(localStorage.getItem(`todoItems`));
+  let clearBtn = document.querySelector(".clear-btn");
+  if (Array.isArray(todoItems) && todoItems.length === 2 && clearBtn === null) {
+    let clearBtn = document.createElement("button");
+    clearBtn.innerHTML = `Clear all`;
+    clearBtn.classList.add("clear-btn");
+    clearDiv.appendChild(clearBtn);
+    clearBtn.addEventListener("click", clearList);
+  }
 }
 
 function deleteItem(event) {
@@ -49,7 +58,6 @@ function deleteItem(event) {
   }
   if (item.classList[0] === "complete-btn") {
     let toDoItem = item.parentElement;
-    console.log(toDoItem.children[0].innerHTML);
     removeLocalTodoItems(toDoItem);
     saveLocalTodoItems({
       description: toDoItem.children[0].innerHTML,
@@ -123,7 +131,7 @@ function getTodoItems() {
       todoDiv.appendChild(trashButton);
       todoList.appendChild(todoDiv);
       todoInput.value = "";
-      if (self.length == i + 1) {
+      if (self.length == i + 2) {
         let clearBtn = document.createElement("button");
         clearBtn.innerHTML = `Clear all`;
         clearBtn.classList.add("clear-btn");
@@ -156,6 +164,10 @@ function clearList() {
       removeLocalTodoItems(todoItem);
       todoItem.addEventListener("transitionend", (event) => {
         todoItem.remove();
+        if (todoItems.length === 0) {
+          let clearBtn = document.querySelector(".clear-btn");
+          clearBtn.remove();
+        }
       });
     }
   });
