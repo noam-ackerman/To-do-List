@@ -153,6 +153,10 @@ select {
   opacity: 0;
 }
 
+.animationClear {
+  opacity: 0;
+}
+
 .completed {
   text-decoration: line-through;
   color: #9c8ab2;
