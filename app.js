@@ -32,7 +32,7 @@ function addTodo(event) {
   trashButton.innerHTML = `<i class="fas fa-trash"></i>`;
   trashButton.classList.add("trash-btn");
   todoDiv.appendChild(trashButton);
-  todoList.appendChild(todoDiv);
+  todoList.prepend(todoDiv);
   todoInput.value = "";
   let todoItems = JSON.parse(localStorage.getItem(`todoItems`));
   if (Array.isArray(todoItems) && todoItems.length === 2) {
@@ -126,7 +126,7 @@ function saveLocalTodoItems(todoItem) {
   } else {
     todoItems = JSON.parse(localStorage.getItem(`todoItems`));
   }
-  todoItems.push(todoItem);
+  todoItems.unshift(todoItem);
   localStorage.setItem(`todoItems`, JSON.stringify(todoItems));
 }
 
