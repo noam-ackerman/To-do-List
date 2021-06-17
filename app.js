@@ -35,8 +35,7 @@ function addTodo(event) {
   todoList.appendChild(todoDiv);
   todoInput.value = "";
   let todoItems = JSON.parse(localStorage.getItem(`todoItems`));
-  let clearBtn = document.querySelector(".clear-btn");
-  if (Array.isArray(todoItems) && todoItems.length === 2 && clearBtn === null) {
+  if (Array.isArray(todoItems) && todoItems.length === 2) {
     let clearBtn = document.createElement("button");
     clearBtn.innerHTML = `Clear all`;
     clearBtn.classList.add("clear-btn");
@@ -47,13 +46,20 @@ function addTodo(event) {
 
 function deleteItem(event) {
   let item = event.target;
-
   if (item.classList[0] === "trash-btn") {
     let toDoItem = item.parentElement;
     toDoItem.classList.add("animation");
     removeLocalTodoItems(toDoItem);
     toDoItem.addEventListener("transitionend", (event) => {
       toDoItem.remove();
+      let todoItems = JSON.parse(localStorage.getItem(`todoItems`));
+      let clearBtn = document.querySelector(".clear-btn");
+      if (Array.isArray(todoItems) && todoItems.length === 1) {
+        clearBtn.classList.add("animationClear");
+        clearBtn.addEventListener("transitionend", (event) => {
+          clearBtn.remove();
+        });
+      }
     });
   }
   if (item.classList[0] === "complete-btn") {
@@ -90,6 +96,28 @@ function filterItems(event) {
     }
   });
 }
+
+function clearList() {
+  let todoItems = todoList.childNodes;
+  todoItems.forEach(function (todoItem) {
+    if (todoItem.style.display == "flex" || todoItem.style.display == "") {
+      todoItem.classList.add("animation");
+      removeLocalTodoItems(todoItem);
+      todoItem.addEventListener("transitionend", (event) => {
+        todoItem.remove();
+        if (todoItems.length <= 1) {
+          let clearBtn = document.querySelector(".clear-btn");
+          clearBtn.classList.add("animationClear");
+          clearBtn.addEventListener("transitionend", (event) => {
+            clearBtn.remove();
+          });
+        }
+      });
+    }
+  });
+}
+
+//from local Storage
 
 function saveLocalTodoItems(todoItem) {
   let todoItems;
@@ -154,21 +182,4 @@ function removeLocalTodoItems(todoItem) {
     1
   );
   localStorage.setItem("todoItems", JSON.stringify(todoItems));
-}
-
-function clearList() {
-  let todoItems = todoList.childNodes;
-  todoItems.forEach(function (todoItem) {
-    if (todoItem.style.display == "flex" || todoItem.style.display == "") {
-      todoItem.classList.add("animation");
-      removeLocalTodoItems(todoItem);
-      todoItem.addEventListener("transitionend", (event) => {
-        todoItem.remove();
-        if (todoItems.length === 0) {
-          let clearBtn = document.querySelector(".clear-btn");
-          clearBtn.remove();
-        }
-      });
-    }
-  });
 }
