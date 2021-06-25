@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", getTodoItems);
 
 //functions
 
+//basic To do Items addition
+
 function addTodo(event) {
   event.preventDefault();
   let todoDiv = document.createElement("div");
@@ -44,6 +46,18 @@ function addTodo(event) {
   }
 }
 
+//removing Clear All button
+
+function removeClearAll() {
+  let clearBtn = document.querySelector(".clear-btn");
+  clearBtn.classList.add("animationClear");
+  clearBtn.addEventListener("transitionend", (event) => {
+    clearBtn.remove();
+  });
+}
+
+//deleting items or marking as completed
+
 function deleteItem(event) {
   let item = event.target;
   if (item.classList[0] === "trash-btn") {
@@ -53,12 +67,8 @@ function deleteItem(event) {
     toDoItem.addEventListener("transitionend", (event) => {
       toDoItem.remove();
       let todoItems = JSON.parse(localStorage.getItem(`todoItems`));
-      let clearBtn = document.querySelector(".clear-btn");
       if (Array.isArray(todoItems) && todoItems.length === 1) {
-        clearBtn.classList.add("animationClear");
-        clearBtn.addEventListener("transitionend", (event) => {
-          clearBtn.remove();
-        });
+        removeClearAll();
       }
     });
   }
@@ -72,6 +82,8 @@ function deleteItem(event) {
     toDoItem.classList.add("completed");
   }
 }
+
+//filtering to do list
 
 function filterItems(event) {
   let todoItems = todoList.childNodes;
@@ -97,6 +109,8 @@ function filterItems(event) {
   });
 }
 
+//clear function after clicking Clear All button
+
 function clearList() {
   let todoItems = todoList.childNodes;
   todoItems.forEach(function (todoItem) {
@@ -106,11 +120,7 @@ function clearList() {
       todoItem.addEventListener("transitionend", (event) => {
         todoItem.remove();
         if (todoItems.length <= 1) {
-          let clearBtn = document.querySelector(".clear-btn");
-          clearBtn.classList.add("animationClear");
-          clearBtn.addEventListener("transitionend", (event) => {
-            clearBtn.remove();
-          });
+          removeClearAll();
         }
       });
     }
@@ -118,6 +128,7 @@ function clearList() {
 }
 
 //from local Storage
+//check for existing items and pusing array
 
 function saveLocalTodoItems(todoItem) {
   let todoItems;
@@ -129,6 +140,8 @@ function saveLocalTodoItems(todoItem) {
   todoItems.unshift(todoItem);
   localStorage.setItem(`todoItems`, JSON.stringify(todoItems));
 }
+
+//display items from local storage after browser refresh
 
 function getTodoItems() {
   let todoItems;
@@ -168,6 +181,8 @@ function getTodoItems() {
       }
     });
 }
+
+//removing deleted to do items from local storage
 
 function removeLocalTodoItems(todoItem) {
   let todoItems;
