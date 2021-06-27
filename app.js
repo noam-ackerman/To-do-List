@@ -88,6 +88,15 @@ function deleteItem(event) {
   }
 }
 
+// Show the case of all Todo's after clearing all
+
+function showCaseAll() {
+  todoList.childNodes.forEach(function (todoItem) {
+    todoItem.style.display = "flex";
+  });
+  document.getElementById("filter-to-do").value = "all";
+}
+
 //filtering to do list
 
 function filterItems(event) {
@@ -127,6 +136,7 @@ function clearList() {
         if (todoItems.length <= 1) {
           removeClearAll();
         }
+        showCaseAll();
       });
     }
   });
