@@ -38,12 +38,17 @@ function addTodo(event) {
   todoInput.value = "";
   let todoItems = JSON.parse(localStorage.getItem(`todoItems`));
   if (Array.isArray(todoItems) && todoItems.length === 2) {
-    let clearBtn = document.createElement("button");
-    clearBtn.innerHTML = `Clear all`;
-    clearBtn.classList.add("clear-btn");
-    clearDiv.appendChild(clearBtn);
-    clearBtn.addEventListener("click", clearList);
+    createClearAll();
   }
+}
+
+//creating clear all button
+function createClearAll() {
+  let clearBtn = document.createElement("button");
+  clearBtn.innerHTML = `Clear all`;
+  clearBtn.classList.add("clear-btn");
+  clearDiv.appendChild(clearBtn);
+  clearBtn.addEventListener("click", clearList);
 }
 
 //removing Clear All button
@@ -173,11 +178,7 @@ function getTodoItems() {
       todoList.appendChild(todoDiv);
       todoInput.value = "";
       if (self.length == i + 2) {
-        let clearBtn = document.createElement("button");
-        clearBtn.innerHTML = `Clear all`;
-        clearBtn.classList.add("clear-btn");
-        clearDiv.appendChild(clearBtn);
-        clearBtn.addEventListener("click", clearList);
+        createClearAll();
       }
     });
 }
