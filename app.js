@@ -6,6 +6,7 @@ let todoList = document.querySelector("#to-do-list");
 let todoContainer = document.querySelector("#to-do-container");
 let filterOption = document.querySelector("#filter-to-do");
 let clearDiv = document.querySelector("#clear-div");
+
 //events listeners
 
 todoButton.addEventListener("click", addTodo);
@@ -15,8 +16,7 @@ document.addEventListener("DOMContentLoaded", getTodoItems);
 
 //functions
 
-//basic To do Items addition
-
+//basic To-do Items addition
 function addTodo(event) {
   event.preventDefault();
   let todoDiv = document.createElement("div");
@@ -52,7 +52,6 @@ function createClearAll() {
 }
 
 //removing Clear All button
-
 function removeClearAll() {
   let clearBtn = document.querySelector(".clear-btn");
   clearBtn.classList.add("animationClear");
@@ -62,7 +61,6 @@ function removeClearAll() {
 }
 
 //deleting items or marking as completed
-
 function deleteItem(event) {
   let item = event.target;
   if (item.classList[0] === "trash-btn") {
@@ -72,8 +70,29 @@ function deleteItem(event) {
     toDoItem.addEventListener("transitionend", (event) => {
       toDoItem.remove();
       let todoItems = JSON.parse(localStorage.getItem(`todoItems`));
-      if (Array.isArray(todoItems) && todoItems.length === 1) {
+      let clearBtn = document.querySelector(".clear-btn");
+      let completedTodosArray = todoItems.filter((todo) => {
+        return todo.status === "Completed";
+      });
+      let uncompletedTodosArray = todoItems.filter((todo) => {
+        return todo.status === "Open";
+      });
+      if (
+        Array.isArray(todoItems) &&
+        todoItems.length === 1 &&
+        clearBtn !== null
+      ) {
         removeClearAll();
+      } else if (
+        Array.isArray(completedTodosArray) &&
+        completedTodosArray.length === 0
+      ) {
+        showCaseAll();
+      } else if (
+        Array.isArray(uncompletedTodosArray) &&
+        uncompletedTodosArray.length === 0
+      ) {
+        showCaseAll();
       }
     });
   }
@@ -88,34 +107,68 @@ function deleteItem(event) {
   }
 }
 
-// Show the case of all Todo's after clearing all
-
+// Show the case of all Todo's after clearing all items in other filters
 function showCaseAll() {
-  todoList.childNodes.forEach(function (todoItem) {
+  let todosArray = JSON.parse(localStorage.getItem(`todoItems`));
+  todoList.childNodes.forEach(function (todoItem, i, self) {
     todoItem.style.display = "flex";
+    document.getElementById("filter-to-do").value = "all";
+    if (Array.isArray(todosArray) && todosArray.length > 1) {
+      createClearAllInFilter(todosArray, i, self);
+    }
   });
-  document.getElementById("filter-to-do").value = "all";
 }
 
 //filtering to do list
 
+function removeClearAllInFilter(array) {
+  let clearBtn = document.querySelector(".clear-btn");
+  if (Array.isArray(array) && array.length <= 1 && clearBtn !== null) {
+    removeClearAll();
+  }
+}
+
+function createClearAllInFilter(array, i, self) {
+  let clearBtn = document.querySelector(".clear-btn");
+  if (
+    Array.isArray(array) &&
+    array.length > 1 &&
+    clearBtn === null &&
+    self.length == i + 2
+  ) {
+    createClearAll();
+  }
+}
+
 function filterItems(event) {
+  let todosArray = JSON.parse(localStorage.getItem(`todoItems`));
   let todoItems = todoList.childNodes;
-  todoItems.forEach(function (todoItem) {
+  todoItems.forEach(function (todoItem, i, self) {
     switch (event.target.value) {
       case "all":
         todoItem.style.display = "flex";
+        createClearAllInFilter(todosArray, i, self);
         break;
       case "completed":
+        let completedTodosArray = todosArray.filter((todo) => {
+          return todo.status === "Completed";
+        });
         if (todoItem.classList.contains("completed")) {
           todoItem.style.display = "flex";
+          removeClearAllInFilter(completedTodosArray);
+          createClearAllInFilter(completedTodosArray, i, self);
         } else {
           todoItem.style.display = "none";
         }
         break;
       case "uncompleted":
+        let uncompletedTodosArray = todosArray.filter((todo) => {
+          return todo.status === "Open";
+        });
         if (!todoItem.classList.contains("completed")) {
           todoItem.style.display = "flex";
+          removeClearAllInFilter(uncompletedTodosArray);
+          createClearAllInFilter(uncompletedTodosArray, i, self);
         } else {
           todoItem.style.display = "none";
         }
