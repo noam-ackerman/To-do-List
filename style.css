@@ -95,16 +95,17 @@ select {
 
 .todo-container {
   display: flex;
+  margin: 0 auto;
   justify-content: center;
   align-items: center;
-  margin-top: 0;
   margin-bottom: 50px;
+  max-width: 77%;
 }
 .todo-list {
   margin: 0 auto;
   padding-left: 26px;
   margin-top: 15px;
-  min-width: 74%;
+  width: 100%;
   list-style: decimal-leading-zero;
 }
 
@@ -122,6 +123,8 @@ select {
 
 .todo li {
   flex: 1;
+  padding-right: 55px;
+  word-break: normal;
 }
 
 .trash-btn,
