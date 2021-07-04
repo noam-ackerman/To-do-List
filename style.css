@@ -93,6 +93,25 @@ select {
   font-size: 15px;
 }
 
+.clear-btn {
+  background: rgb(100, 100, 100, 0.9);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 30px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 200ms ease-in-out;
+}
+
+.clearDiv {
+  margin: 0 auto;
+  text-align: right;
+  max-width: 77%;
+  margin-top: 40px;
+}
+
 .todo-container {
   display: flex;
   margin: 0 auto;
@@ -123,7 +142,7 @@ select {
 
 .todo li {
   flex: 1;
-  padding-right: 55px;
+  padding-right: 57px;
   word-break: normal;
 }
 
@@ -177,23 +196,4 @@ select {
 }
 a {
   color: white;
-}
-
-.clear-btn {
-  background: rgb(100, 100, 100, 0.9);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 30px;
-  cursor: pointer;
-  font-size: 15px;
-  font-weight: 600;
-  transition: all 200ms ease-in-out;
-}
-
-.clearDiv {
-  margin: 0 auto;
-  text-align: right;
-  max-width: 77%;
-  margin-top: 40px;
 }
