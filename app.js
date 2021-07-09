@@ -10,7 +10,7 @@ let clearDiv = document.querySelector("#clear-div");
 //events listeners
 
 todoButton.addEventListener("click", addTodo);
-todoList.addEventListener("click", deleteItem);
+todoList.addEventListener("click", deleteOrMarkItem);
 filterOption.addEventListener("click", filterItems);
 document.addEventListener("DOMContentLoaded", getTodoItems);
 
@@ -40,6 +40,7 @@ function addTodo(event) {
   if (Array.isArray(todoItems) && todoItems.length === 2) {
     createClearAll();
   }
+  showCaseAll();
 }
 
 //creating clear all button
@@ -61,7 +62,7 @@ function removeClearAll() {
 }
 
 //deleting items or marking as completed
-function deleteItem(event) {
+function deleteOrMarkItem(event) {
   let item = event.target;
   if (item.classList[0] === "trash-btn") {
     let toDoItem = item.parentElement;
@@ -78,19 +79,23 @@ function deleteItem(event) {
         return todo.status === "Open";
       });
       if (
-        Array.isArray(todoItems) &&
-        todoItems.length === 1 &&
-        clearBtn !== null
+        (Array.isArray(todoItems) &&
+          todoItems.length === 1 &&
+          filterOption.value === "all" &&
+          clearBtn !== null) ||
+        (Array.isArray(completedTodosArray) &&
+          completedTodosArray.length === 1 &&
+          filterOption.value === "completed") ||
+        (Array.isArray(uncompletedTodosArray) &&
+          uncompletedTodosArray.length === 1 &&
+          filterOption.value === "uncompleted")
       ) {
         removeClearAll();
       } else if (
-        Array.isArray(completedTodosArray) &&
-        completedTodosArray.length === 0
-      ) {
-        showCaseAll();
-      } else if (
-        Array.isArray(uncompletedTodosArray) &&
-        uncompletedTodosArray.length === 0
+        (Array.isArray(completedTodosArray) &&
+          completedTodosArray.length === 0) ||
+        (Array.isArray(uncompletedTodosArray) &&
+          uncompletedTodosArray.length === 0)
       ) {
         showCaseAll();
       }
@@ -110,12 +115,10 @@ function deleteItem(event) {
 // Show the case of all Todo's after clearing all items in other filters
 function showCaseAll() {
   let todosArray = JSON.parse(localStorage.getItem(`todoItems`));
+  filterOption.value = "all";
   todoList.childNodes.forEach(function (todoItem, i, self) {
     todoItem.style.display = "flex";
-    document.getElementById("filter-to-do").value = "all";
-    if (Array.isArray(todosArray) && todosArray.length > 1) {
-      createClearAllInFilter(todosArray, i, self);
-    }
+    createClearAllInFilter(todosArray, i, self);
   });
 }
 
@@ -153,10 +156,10 @@ function filterItems(event) {
         let completedTodosArray = todosArray.filter((todo) => {
           return todo.status === "Completed";
         });
+        removeClearAllInFilter(completedTodosArray);
+        createClearAllInFilter(completedTodosArray, i, self);
         if (todoItem.classList.contains("completed")) {
           todoItem.style.display = "flex";
-          removeClearAllInFilter(completedTodosArray);
-          createClearAllInFilter(completedTodosArray, i, self);
         } else {
           todoItem.style.display = "none";
         }
@@ -165,10 +168,10 @@ function filterItems(event) {
         let uncompletedTodosArray = todosArray.filter((todo) => {
           return todo.status === "Open";
         });
+        removeClearAllInFilter(uncompletedTodosArray);
+        createClearAllInFilter(uncompletedTodosArray, i, self);
         if (!todoItem.classList.contains("completed")) {
           todoItem.style.display = "flex";
-          removeClearAllInFilter(uncompletedTodosArray);
-          createClearAllInFilter(uncompletedTodosArray, i, self);
         } else {
           todoItem.style.display = "none";
         }
