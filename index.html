@@ -18,44 +18,44 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="container">
-      <div class="group">
-        <header>
-          <h1>Don't Forget</h1>
-          <h2>TO-DO LIST</h2>
-        </header>
+    <div class="group">
+      <header>
+        <h1>Don't Forget</h1>
+        <h2>TO-DO LIST</h2>
+      </header>
+      <div class="container">
         <form>
           <input type="text" class="todo-input" id="to-do-input" />
           <button class="todo-button" id="to-do-button" type="submit">
             <i class="fas fa-plus"></i>
           </button>
-          <select name="todos" class="filter-todo" id="filter-to-do">
-            <option value="all">All</option>
-            <option value="completed">Completed</option>
-            <option value="uncompleted">Uncompleted</option>
-          </select>
         </form>
-        <div class="clearDiv" id="clear-div"></div>
-        <div class="todo-container" id="to-do-container">
-          <ul class="todo-list" id="to-do-list"></ul>
-        </div>
+        <select name="todos" class="filter-todo" id="filter-to-do">
+          <option value="all">All</option>
+          <option value="completed">Completed</option>
+          <option value="uncompleted">Uncompleted</option>
+        </select>
       </div>
-      <div class="codedBy">
-        <a
-          href="https://github.com/noam-ackerman/To-do-List"
-          target="_blank"
-          class="codeLink"
-        >
-          Open-source code</a
-        >
-        designed and built by
-        <a
-          href="https://www.linkedin.com/in/noam-ackerman/"
-          target="_blank"
-          class="codeLink"
-          >Noam Ackerman</a
-        >
+      <div class="clearDiv" id="clear-div"></div>
+      <div class="todo-container" id="to-do-container">
+        <ul class="todo-list" id="to-do-list"></ul>
       </div>
+    </div>
+    <div class="codedBy">
+      <a
+        href="https://github.com/noam-ackerman/To-do-List"
+        target="_blank"
+        class="codeLink"
+      >
+        Open-source code</a
+      >
+      designed and built by
+      <a
+        href="https://www.linkedin.com/in/noam-ackerman/"
+        target="_blank"
+        class="codeLink"
+        >Noam Ackerman</a
+      >
     </div>
     <script src="app.js"></script>
   </body>
