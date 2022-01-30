@@ -72,35 +72,37 @@ function deleteOrMarkItem(event) {
     removeLocalTodoItems(toDoItem);
     toDoItem.addEventListener("transitionend", (event) => {
       toDoItem.remove();
-      let todoItems = JSON.parse(localStorage.getItem(`todoItems`));
-      let clearBtn = document.querySelector(".clear-btn");
-      let completedTodosArray = todoItems.filter((todo) => {
-        return todo.status === "Completed";
-      });
-      let uncompletedTodosArray = todoItems.filter((todo) => {
-        return todo.status === "Open";
-      });
-      if (
-        (Array.isArray(todoItems) &&
-          todoItems.length === 1 &&
-          filterOption.value === "all" &&
-          clearBtn !== null) ||
-        (Array.isArray(completedTodosArray) &&
-          completedTodosArray.length === 1 &&
-          filterOption.value === "completed") ||
-        (Array.isArray(uncompletedTodosArray) &&
-          uncompletedTodosArray.length === 1 &&
-          filterOption.value === "uncompleted")
-      ) {
-        removeClearAll();
-      } else if (
-        (Array.isArray(completedTodosArray) &&
-          completedTodosArray.length === 0) ||
-        (Array.isArray(uncompletedTodosArray) &&
-          uncompletedTodosArray.length === 0)
-      ) {
-        showCaseAll();
-      }
+      setTimeout(() => {
+        let todoItems = JSON.parse(localStorage.getItem(`todoItems`));
+        let clearBtn = document.querySelector(".clear-btn");
+        let completedTodosArray = todoItems.filter((todo) => {
+          return todo.status === "Completed";
+        });
+        let uncompletedTodosArray = todoItems.filter((todo) => {
+          return todo.status === "Open";
+        });
+        if (
+          (Array.isArray(todoItems) &&
+            todoItems.length === 1 &&
+            filterOption.value === "all" &&
+            clearBtn !== null) ||
+          (Array.isArray(completedTodosArray) &&
+            completedTodosArray.length === 1 &&
+            filterOption.value === "completed") ||
+          (Array.isArray(uncompletedTodosArray) &&
+            uncompletedTodosArray.length === 1 &&
+            filterOption.value === "uncompleted")
+        ) {
+          removeClearAll();
+        } else if (
+          (Array.isArray(completedTodosArray) &&
+            completedTodosArray.length === 0) ||
+          (Array.isArray(uncompletedTodosArray) &&
+            uncompletedTodosArray.length === 0)
+        ) {
+          showCaseAll();
+        }
+      }, 250);
     });
   } else if (item.classList[0] === "complete-btn") {
     let toDoItem = item.parentElement;
