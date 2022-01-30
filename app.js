@@ -19,28 +19,30 @@ document.addEventListener("DOMContentLoaded", getTodoItems);
 //basic To-do Items addition
 function addTodo(event) {
   event.preventDefault();
-  let todoDiv = document.createElement("div");
-  todoDiv.classList.add("todo");
-  let newTodo = document.createElement("li");
-  newTodo.innerHTML = todoInput.value;
-  newTodo.classList.add("todo-item");
-  todoDiv.appendChild(newTodo);
-  saveLocalTodoItems({ description: todoInput.value, status: "Open" });
-  let completedButton = document.createElement("button");
-  completedButton.innerHTML = `<i class="fas fa-check"></i>`;
-  completedButton.classList.add("complete-btn");
-  todoDiv.appendChild(completedButton);
-  let trashButton = document.createElement("button");
-  trashButton.innerHTML = `<i class="fas fa-trash"></i>`;
-  trashButton.classList.add("trash-btn");
-  todoDiv.appendChild(trashButton);
-  todoList.prepend(todoDiv);
-  todoInput.value = "";
-  let todoItems = JSON.parse(localStorage.getItem(`todoItems`));
-  if (Array.isArray(todoItems) && todoItems.length === 2) {
-    createClearAll();
+  if (todoInput.value.trim() !== "") {
+    let todoDiv = document.createElement("div");
+    todoDiv.classList.add("todo");
+    let newTodo = document.createElement("li");
+    newTodo.innerHTML = todoInput.value;
+    newTodo.classList.add("todo-item");
+    todoDiv.appendChild(newTodo);
+    saveLocalTodoItems({ description: todoInput.value, status: "Open" });
+    let completedButton = document.createElement("button");
+    completedButton.innerHTML = `<i class="fas fa-check"></i>`;
+    completedButton.classList.add("complete-btn");
+    todoDiv.appendChild(completedButton);
+    let trashButton = document.createElement("button");
+    trashButton.innerHTML = `<i class="fas fa-trash"></i>`;
+    trashButton.classList.add("trash-btn");
+    todoDiv.appendChild(trashButton);
+    todoList.prepend(todoDiv);
+    todoInput.value = "";
+    let todoItems = JSON.parse(localStorage.getItem(`todoItems`));
+    if (Array.isArray(todoItems) && todoItems.length === 2) {
+      createClearAll();
+    }
+    showCaseAll();
   }
-  showCaseAll();
 }
 
 //creating clear all button
@@ -69,39 +71,40 @@ function deleteOrMarkItem(event) {
     toDoItem.classList.add("animation");
     removeLocalTodoItems(toDoItem);
     toDoItem.addEventListener("transitionend", (event) => {
-      toDoItem.remove();
-      let todoItems = JSON.parse(localStorage.getItem(`todoItems`));
-      let clearBtn = document.querySelector(".clear-btn");
-      let completedTodosArray = todoItems.filter((todo) => {
-        return todo.status === "Completed";
-      });
-      let uncompletedTodosArray = todoItems.filter((todo) => {
-        return todo.status === "Open";
-      });
-      if (
-        (Array.isArray(todoItems) &&
-          todoItems.length === 1 &&
-          filterOption.value === "all" &&
-          clearBtn !== null) ||
-        (Array.isArray(completedTodosArray) &&
-          completedTodosArray.length === 1 &&
-          filterOption.value === "completed") ||
-        (Array.isArray(uncompletedTodosArray) &&
-          uncompletedTodosArray.length === 1 &&
-          filterOption.value === "uncompleted")
-      ) {
-        removeClearAll();
-      } else if (
-        (Array.isArray(completedTodosArray) &&
-          completedTodosArray.length === 0) ||
-        (Array.isArray(uncompletedTodosArray) &&
-          uncompletedTodosArray.length === 0)
-      ) {
-        showCaseAll();
-      }
+      setTimeout(() => {
+        toDoItem.remove();
+        let todoItems = JSON.parse(localStorage.getItem(`todoItems`));
+        let clearBtn = document.querySelector(".clear-btn");
+        let completedTodosArray = todoItems.filter((todo) => {
+          return todo.status === "Completed";
+        });
+        let uncompletedTodosArray = todoItems.filter((todo) => {
+          return todo.status === "Open";
+        });
+        if (
+          (Array.isArray(todoItems) &&
+            todoItems.length === 1 &&
+            filterOption.value === "all" &&
+            clearBtn !== null) ||
+          (Array.isArray(completedTodosArray) &&
+            completedTodosArray.length === 1 &&
+            filterOption.value === "completed") ||
+          (Array.isArray(uncompletedTodosArray) &&
+            uncompletedTodosArray.length === 1 &&
+            filterOption.value === "uncompleted")
+        ) {
+          removeClearAll();
+        } else if (
+          (Array.isArray(completedTodosArray) &&
+            completedTodosArray.length === 0) ||
+          (Array.isArray(uncompletedTodosArray) &&
+            uncompletedTodosArray.length === 0)
+        ) {
+          showCaseAll();
+        }
+      }, 350);
     });
-  }
-  if (item.classList[0] === "complete-btn") {
+  } else if (item.classList[0] === "complete-btn") {
     let toDoItem = item.parentElement;
     removeLocalTodoItems(toDoItem);
     saveLocalTodoItems({
