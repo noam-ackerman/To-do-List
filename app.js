@@ -11,7 +11,7 @@ let clearDiv = document.querySelector("#clear-div");
 
 todoButton.addEventListener("click", addTodo);
 todoList.addEventListener("click", deleteOrMarkItem);
-filterOption.addEventListener("click", filterItems);
+filterOption.addEventListener("change", filterItems);
 document.addEventListener("DOMContentLoaded", getTodoItems);
 
 //functions
