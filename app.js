@@ -102,7 +102,7 @@ function deleteOrMarkItem(event) {
         ) {
           showCaseAll();
         }
-      }, 350);
+      }, 250);
     });
   } else if (item.classList[0] === "complete-btn") {
     let toDoItem = item.parentElement;
